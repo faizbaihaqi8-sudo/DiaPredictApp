@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DiaPredictApp.Pages.PatientDashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F4FFFC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryTeal">#0A7C7C</Color>
+            <Color x:Key="DarkTeal">#045D63</Color>
+            <Color x:Key="TextDark">#173B3F</Color>
+            <Color x:Key="TextSoft">#6F8B8F</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid Padding="30">
+
+            <Border
+                WidthRequest="1180"
+                MinimumHeightRequest="720"
+                Background="White"
+                Stroke="#DDEDEA"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Padding="34" Spacing="18">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label
+                                Text="Dashboard Pasien"
+                                FontSize="34"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource DarkTeal}" />
+
+                            <Label
+                                x:Name="WelcomeLabel"
+                                Text="Selamat datang di DiaPredict."
+                                FontSize="15"
+                                TextColor="{StaticResource TextSoft}" />
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="1"
+                            Text="KELUAR"
+                            WidthRequest="130"
+                            HeightRequest="46"
+                            CornerRadius="16"
+                            BackgroundColor="#FFE7E7"
+                            TextColor="#FF6B6B"
+                            FontAttributes="Bold"
+                            Clicked="OnLogoutClicked" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="0.95*,1.05*" ColumnSpacing="18">
+
+                        <Border
+                            Grid.Column="0"
+                            Padding="22"
+                            Background="#F9FFFD"
+                            Stroke="#DDEDEA"
+                            StrokeThickness="1">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="14">
+
+                                <Label
+                                    Text="Input Prediksi Risiko Diabetes"
+                                    FontSize="23"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource DarkTeal}" />
+
+                                <Label
+                                    Text="Versi ini menggunakan fuzzy logic sederhana dengan 3 input utama: glukosa puasa, BMI, dan riwayat keluarga diabetes."
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSoft}"
+                                    LineBreakMode="WordWrap" />
+
+                                <Label
+                                    Text="Glukosa Puasa (mg/dL)"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextDark}" />
+
+                                <Entry
+                                    x:Name="GlucoseEntry"
+                                    Placeholder="Contoh: 110"
+                                    PlaceholderColor="#8AA3A6"
+                                    Keyboard="Numeric"
+                                    BackgroundColor="White"
+                                    TextColor="{StaticResource TextDark}" />
+
+                                <Label
+                                    Text="BMI"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextDark}" />
+
+                                <Entry
+                                    x:Name="BmiEntry"
+                                    Placeholder="Contoh: 27.5"
+                                    PlaceholderColor="#8AA3A6"
+                                    Keyboard="Numeric"
+                                    BackgroundColor="White"
+                                    TextColor="{StaticResource TextDark}" />
+
+                                <Grid ColumnDefinitions="*,Auto" Margin="0,6,0,0">
+                                    <Label
+                                        Text="Ada riwayat keluarga diabetes?"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource TextDark}"
+                                        VerticalOptions="Center" />
+
+                                    <Switch
+                                        x:Name="FamilyHistorySwitch"
+                                        Grid.Column="1"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                                <Button
+                                    Text="PREDIKSI RISIKO DIABETES"
+                                    HeightRequest="50"
+                                    CornerRadius="18"
+                                    BackgroundColor="{StaticResource PrimaryTeal}"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    Margin="0,12,0,0"
+                                    Clicked="OnPredictClicked" />
+
+                                <Border
+                                    Padding="16"
+                                    Background="White"
+                                    Stroke="#DDEDEA"
+                                    StrokeThickness="1"
+                                    Margin="0,8,0,0">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="18" />
+                                    </Border.StrokeShape>
+
+                                    <Label
+                                        Text="Catatan: hasil prediksi ini adalah estimasi risiko awal, bukan diagnosis medis. Diagnosis tetap membutuhkan pemeriksaan tenaga kesehatan."
+                                        FontSize="13"
+                                        TextColor="{StaticResource TextSoft}"
+                                        LineBreakMode="WordWrap" />
+                                </Border>
+
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border
+                            Grid.Column="1"
+                            Padding="24"
+                            Background="#0A7C7C"
+                            StrokeThickness="0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="15">
+
+                                <Label
+                                    Text="Hasil Prediksi &amp; XAI"
+                                    FontSize="23"
+                                    FontAttributes="Bold"
+                                    TextColor="White" />
+
+                                <Border Padding="18" Background="#22FFFFFF" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="Status Risiko" FontSize="13" TextColor="#EFFFFB" />
+                                        <Label x:Name="RiskResultLabel" Text="Belum ada prediksi" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                                        <Label x:Name="RiskScoreLabel" Text="Skor: -" FontSize="14" TextColor="#EFFFFB" />
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <Border Padding="18" Background="#22FFFFFF" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="Ringkasan Data Pasien" FontSize="13" TextColor="#EFFFFB" />
+                                        <Label
+                                            x:Name="ClinicalSummaryLabel"
+                                            Text="Belum ada data."
+                                            FontSize="14"
+                                            TextColor="White"
+                                            LineBreakMode="WordWrap" />
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <Border Padding="18" Background="#22FFFFFF" StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="20" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="Penjelasan Hasil" FontSize="13" TextColor="#EFFFFB" />
+
+                                        <ScrollView HeightRequest="330" VerticalScrollBarVisibility="Always">
+                                            <Label
+                                                x:Name="ExplanationLabel"
+                                                Text="Masukkan data terlebih dahulu untuk melihat penjelasan."
+                                                FontSize="14"
+                                                TextColor="White"
+                                                LineBreakMode="WordWrap" />
+                                        </ScrollView>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </Grid>
+
+                    <Border
+                        Padding="22"
+                        Background="#F9FFFD"
+                        Stroke="#DDEDEA"
+                        StrokeThickness="1">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout Spacing="13">
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="3">
+                                    <Label
+                                        Text="DiaAssist"
+                                        FontSize="24"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource DarkTeal}" />
+
+                                    <Label
+                                        Text="Asisten NLP berbasis Gemini API untuk membantu memahami hasil prediksi diabetes."
+                                        FontSize="13"
+                                        TextColor="{StaticResource TextSoft}" />
+                                </VerticalStackLayout>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="Gemini API"
+                                    FontSize="13"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <Entry
+                                    x:Name="AssistantQuestionEntry"
+                                    Placeholder="Tanyakan sesuatu, misalnya: kenapa saya risiko tinggi?"
+                                    PlaceholderColor="#8AA3A6"
+                                    BackgroundColor="White"
+                                    TextColor="{StaticResource TextDark}" />
+
+                                <Button
+                                    Grid.Column="1"
+                                    Text="KIRIM"
+                                    WidthRequest="120"
+                                    CornerRadius="16"
+                                    BackgroundColor="{StaticResource PrimaryTeal}"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    Clicked="OnAssistantSendClicked" />
+                            </Grid>
+
+                            <HorizontalStackLayout Spacing="8">
+                                <Button
+                                    Text="Jelaskan hasil saya"
+                                    FontSize="12"
+                                    CornerRadius="14"
+                                    BackgroundColor="#DFF8F1"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    Clicked="OnQuickExplainClicked" />
+
+                                <Button
+                                    Text="Apa itu glukosa?"
+                                    FontSize="12"
+                                    CornerRadius="14"
+                                    BackgroundColor="#DFF8F1"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    Clicked="OnQuickGlucoseClicked" />
+
+                                <Button
+                                    Text="Kenapa BMI berpengaruh?"
+                                    FontSize="12"
+                                    CornerRadius="14"
+                                    BackgroundColor="#DFF8F1"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    Clicked="OnQuickBmiClicked" />
+
+                                <Button
+                                    Text="Apa saran awal?"
+                                    FontSize="12"
+                                    CornerRadius="14"
+                                    BackgroundColor="#DFF8F1"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    Clicked="OnQuickAdviceClicked" />
+                            </HorizontalStackLayout>
+
+                            <Border
+                                Padding="16"
+                                Background="White"
+                                Stroke="#DDEDEA"
+                                StrokeThickness="1"
+                                MinimumHeightRequest="180">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="18" />
+                                </Border.StrokeShape>
+
+                                <ScrollView
+                                    HeightRequest="230"
+                                    VerticalScrollBarVisibility="Always">
+
+                                    <Label
+                                        x:Name="AssistantAnswerLabel"
+                                        Text="Halo, aku DiaAssist. Kamu bisa bertanya tentang hasil risiko, glukosa, BMI, riwayat keluarga, atau saran setelah mendapatkan hasil."
+                                        FontSize="14"
+                                        TextColor="{StaticResource TextDark}"
+                                        LineBreakMode="WordWrap" />
+                                </ScrollView>
+                            </Border>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </ScrollView>
+</ContentPage>

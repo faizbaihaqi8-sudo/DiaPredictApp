@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DiaPredictApp.Pages.NakesDashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F4FFFC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryTeal">#0A7C7C</Color>
+            <Color x:Key="DarkTeal">#045D63</Color>
+            <Color x:Key="TextDark">#173B3F</Color>
+            <Color x:Key="TextSoft">#6F8B8F</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid Padding="30">
+
+            <Border
+                WidthRequest="1120"
+                MinimumHeightRequest="650"
+                Background="White"
+                Stroke="#DDEDEA"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Padding="38" Spacing="22">
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label
+                                Text="Dashboard Nakes"
+                                FontSize="34"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource DarkTeal}" />
+
+                            <Label
+                                x:Name="WelcomeLabel"
+                                Text="Panel tenaga kesehatan DiaPredict."
+                                FontSize="15"
+                                TextColor="{StaticResource TextSoft}" />
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="1"
+                            Text="KELUAR"
+                            WidthRequest="130"
+                            HeightRequest="46"
+                            CornerRadius="16"
+                            BackgroundColor="#FFE7E7"
+                            TextColor="#FF6B6B"
+                            FontAttributes="Bold"
+                            Clicked="OnLogoutClicked" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="16">
+
+                        <Border Padding="22" Background="#F9FFFD" Stroke="#DDEDEA" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Total Pasien" FontSize="14" TextColor="{StaticResource TextSoft}" />
+                                <Label x:Name="TotalPatientsLabel" Text="0" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource DarkTeal}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="1" Padding="22" Background="#F9FFFD" Stroke="#DDEDEA" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Risiko Tinggi" FontSize="14" TextColor="{StaticResource TextSoft}" />
+                                <Label x:Name="HighRiskLabel" Text="0" FontSize="34" FontAttributes="Bold" TextColor="#FF6B6B" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="2" Padding="22" Background="#F9FFFD" Stroke="#DDEDEA" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Sudah Diprediksi" FontSize="14" TextColor="{StaticResource TextSoft}" />
+                                <Label x:Name="PredictedPatientsLabel" Text="0" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource DarkTeal}" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </Grid>
+
+                    <Border
+                        Padding="24"
+                        Background="#F9FFFD"
+                        Stroke="#DDEDEA"
+                        StrokeThickness="1">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24" />
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout Spacing="16">
+
+                            <Label
+                                Text="Data Pasien Terdaftar"
+                                FontSize="24"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource DarkTeal}" />
+
+                            <Label
+                                x:Name="EmptyPatientsLabel"
+                                Text="Belum ada pasien yang terdaftar."
+                                FontSize="14"
+                                TextColor="{StaticResource TextSoft}"
+                                IsVisible="False" />
+
+                            <CollectionView
+                                x:Name="PatientsCollectionView"
+                                HeightRequest="360">
+
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            Margin="0,0,0,12"
+                                            Padding="18"
+                                            Background="White"
+                                            Stroke="#DDEDEA"
+                                            StrokeThickness="1">
+
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="18" />
+                                            </Border.StrokeShape>
+
+                                            <Grid ColumnDefinitions="1.2*,0.8*,1.2*" ColumnSpacing="18">
+
+                                                <VerticalStackLayout Spacing="5">
+                                                    <Label
+                                                        Text="{Binding FullName}"
+                                                        FontSize="17"
+                                                        FontAttributes="Bold"
+                                                        TextColor="#173B3F" />
+
+                                                    <Label
+                                                        Text="{Binding Username, StringFormat='Username: {0}'}"
+                                                        FontSize="13"
+                                                        TextColor="#6F8B8F" />
+
+                                                    <Label
+                                                        Text="{Binding LastPredictionDateText, StringFormat='Terakhir prediksi: {0}'}"
+                                                        FontSize="13"
+                                                        TextColor="#6F8B8F" />
+                                                </VerticalStackLayout>
+
+                                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                                    <Label
+                                                        Text="Status Risiko"
+                                                        FontSize="13"
+                                                        TextColor="#6F8B8F" />
+
+                                                    <Label
+                                                        Text="{Binding LastRiskResult}"
+                                                        FontSize="16"
+                                                        FontAttributes="Bold"
+                                                        TextColor="#0A7C7C" />
+
+                                                    <Label
+                                                        Text="{Binding LastRiskScore, StringFormat='Skor: {0}'}"
+                                                        FontSize="13"
+                                                        TextColor="#6F8B8F" />
+                                                </VerticalStackLayout>
+
+                                                <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                                    <Label
+                                                        Text="Alasan / XAI"
+                                                        FontSize="13"
+                                                        TextColor="#6F8B8F" />
+
+                                                    <Label
+                                                        Text="{Binding LastRiskExplanation}"
+                                                        FontSize="13"
+                                                        TextColor="#173B3F"
+                                                        LineBreakMode="WordWrap"
+                                                        MaxLines="5" />
+                                                </VerticalStackLayout>
+
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </ScrollView>
+</ContentPage>

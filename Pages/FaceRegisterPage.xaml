@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DiaPredictApp.Pages.FaceRegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F4FFFC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryTeal">#0A7C7C</Color>
+            <Color x:Key="DarkTeal">#045D63</Color>
+            <Color x:Key="TextDark">#173B3F</Color>
+            <Color x:Key="TextSoft">#6F8B8F</Color>
+            <Color x:Key="SuccessGreen">#159A6B</Color>
+            <Color x:Key="DangerRed">#FF6B6B</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Padding="30">
+
+        <Border
+            WidthRequest="980"
+            MinimumHeightRequest="600"
+            Background="White"
+            Stroke="#DDEDEA"
+            StrokeThickness="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30" />
+            </Border.StrokeShape>
+
+            <Grid ColumnDefinitions="0.95*,1.05*">
+
+                <!-- PANEL KIRI -->
+                <Grid
+                    Grid.Column="0"
+                    BackgroundColor="#0A7C7C"
+                    Padding="38">
+
+                    <VerticalStackLayout
+                        Spacing="18"
+                        VerticalOptions="Center">
+
+                        <Border
+                            WidthRequest="120"
+                            HeightRequest="120"
+                            Background="#DFF8F1"
+                            StrokeThickness="0"
+                            HorizontalOptions="Center">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="60" />
+                            </Border.StrokeShape>
+
+                            <Label
+                                Text="☺"
+                                FontSize="58"
+                                FontAttributes="Bold"
+                                TextColor="#0A7C7C"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <Label
+                            Text="Pendaftaran Wajah"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            TextColor="White"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Ambil atau pilih foto wajah pengguna. Foto ini akan disimpan sebagai data wajah sementara untuk proses verifikasi."
+                            FontSize="15"
+                            TextColor="#EFFFFB"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap" />
+
+                        <Border
+                            Padding="18"
+                            Background="#22FFFFFF"
+                            StrokeThickness="0"
+                            Margin="0,18,0,0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="✓ Pastikan wajah terlihat jelas" TextColor="White" FontSize="14" />
+                                <Label Text="✓ Gunakan pencahayaan yang cukup" TextColor="White" FontSize="14" />
+                                <Label Text="✓ Setelah disimpan, kamu kembali ke halaman daftar" TextColor="White" FontSize="14" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- PANEL KANAN -->
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Padding="46,34"
+                    Spacing="16"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="Ambil Foto Wajah"
+                        FontSize="32"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource DarkTeal}" />
+
+                    <Label
+                        Text="Gunakan kamera untuk mengambil foto wajah. Jika kamera Windows tidak terbuka, gunakan tombol pilih foto sebagai cadangan."
+                        FontSize="14"
+                        TextColor="{StaticResource TextSoft}"
+                        LineBreakMode="WordWrap" />
+
+                    <Border
+                        HeightRequest="280"
+                        Background="#F9FFFD"
+                        Stroke="#D7EDEA"
+                        StrokeThickness="1"
+                        Padding="12"
+                        Margin="0,8,0,0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24" />
+                        </Border.StrokeShape>
+
+                        <Grid>
+
+                            <Image
+                                x:Name="FacePreviewImage"
+                                Aspect="AspectFit"
+                                BackgroundColor="#F9FFFD" />
+
+                            <VerticalStackLayout
+                                x:Name="EmptyPreviewLayout"
+                                Spacing="8"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="Belum ada foto"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextSoft}"
+                                    HorizontalTextAlignment="Center" />
+
+                                <Label
+                                    Text="Ambil atau pilih foto wajah terlebih dahulu."
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextSoft}"
+                                    HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                            <Label
+                                x:Name="CameraStatusLabel"
+                                Text="Status: menunggu foto wajah"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextSoft}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="End" />
+
+                        </Grid>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                        <Button
+                            Grid.Column="0"
+                            Text="AMBIL FOTO"
+                            HeightRequest="48"
+                            CornerRadius="16"
+                            BackgroundColor="{StaticResource PrimaryTeal}"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            Clicked="OnCaptureFaceClicked" />
+
+                        <Button
+                            Grid.Column="1"
+                            Text="PILIH FOTO"
+                            HeightRequest="48"
+                            CornerRadius="16"
+                            BackgroundColor="#DFF8F1"
+                            TextColor="{StaticResource PrimaryTeal}"
+                            FontAttributes="Bold"
+                            Clicked="OnPickFaceClicked" />
+                    </Grid>
+
+                    <Button
+                        x:Name="SaveFaceButton"
+                        Text="SIMPAN WAJAH"
+                        HeightRequest="50"
+                        CornerRadius="18"
+                        BackgroundColor="#B8C9C9"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        IsEnabled="False"
+                        Clicked="OnSaveFaceClicked" />
+
+                    <Button
+                        Text="KEMBALI"
+                        HeightRequest="48"
+                        CornerRadius="18"
+                        BackgroundColor="#F1F8F7"
+                        TextColor="{StaticResource PrimaryTeal}"
+                        FontAttributes="Bold"
+                        Clicked="OnBackClicked" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

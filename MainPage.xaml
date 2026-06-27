@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DiaPredictApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F4FFFC">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryTeal">#0A7C7C</Color>
+            <Color x:Key="DarkTeal">#045D63</Color>
+            <Color x:Key="SoftMint">#DFF8F1</Color>
+            <Color x:Key="TextDark">#173B3F</Color>
+            <Color x:Key="TextSoft">#6F8B8F</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid Padding="30">
+
+            <Border
+                WidthRequest="980"
+                MinimumHeightRequest="560"
+                Background="White"
+                Stroke="#DDEDEA"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30" />
+                </Border.StrokeShape>
+
+                <Grid ColumnDefinitions="1.05*,0.95*">
+
+                    <!-- FORM LOGIN -->
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        Padding="46,42"
+                        Spacing="16"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="DiaPredict"
+                            FontSize="34"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource DarkTeal}" />
+
+                        <Label
+                            Text="Smart Diabetes Risk Screening"
+                            FontSize="17"
+                            TextColor="{StaticResource TextSoft}" />
+
+                        <Label
+                            Text="Masuk untuk memulai prediksi risiko diabetes dengan sistem aman dan terverifikasi."
+                            FontSize="14"
+                            TextColor="{StaticResource TextSoft}"
+                            LineBreakMode="WordWrap"
+                            Margin="0,0,0,12" />
+
+                        <Label
+                            Text="Username"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextDark}" />
+
+                        <Border
+                            HeightRequest="48"
+                            Stroke="#D7EDEA"
+                            StrokeThickness="1"
+                            Background="#F9FFFD"
+                            Padding="14,0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+
+                            <Entry
+                                x:Name="UsernameEntry"
+                                Placeholder="Masukkan username"
+                                PlaceholderColor="#9BB3B6"
+                                TextColor="{StaticResource TextDark}"
+                                BackgroundColor="Transparent" />
+                        </Border>
+
+                        <Label
+                            Text="Password"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextDark}" />
+
+                        <Border
+                            HeightRequest="48"
+                            Stroke="#D7EDEA"
+                            StrokeThickness="1"
+                            Background="#F9FFFD"
+                            Padding="14,0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,80">
+                                <Entry
+                                    x:Name="PasswordEntry"
+                                    Placeholder="Masukkan password"
+                                    PlaceholderColor="#9BB3B6"
+                                    TextColor="{StaticResource TextDark}"
+                                    BackgroundColor="Transparent"
+                                    IsPassword="True" />
+
+                                <Button
+                                    x:Name="PasswordToggleButton"
+                                    Grid.Column="1"
+                                    Text="Lihat"
+                                    FontSize="12"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{StaticResource PrimaryTeal}"
+                                    Clicked="TogglePasswordVisibility_Clicked" />
+                            </Grid>
+                        </Border>
+
+                        <Label
+                            Text="Role"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextDark}" />
+
+                        <Border
+                            HeightRequest="48"
+                            Stroke="#D7EDEA"
+                            StrokeThickness="1"
+                            Background="#F9FFFD"
+                            Padding="14,0">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+
+                            <Picker
+                                x:Name="RolePicker"
+                                Title="Pilih role pengguna"
+                                TitleColor="#9BB3B6"
+                                TextColor="{StaticResource TextDark}"
+                                BackgroundColor="Transparent">
+
+                                <Picker.Items>
+                                    <x:String>Pasien</x:String>
+                                    <x:String>Nakes</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Border>
+
+                        <Button
+                            Text="LOGIN"
+                            HeightRequest="50"
+                            CornerRadius="18"
+                            BackgroundColor="{StaticResource PrimaryTeal}"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            Margin="0,14,0,0"
+                            Clicked="OnLoginClicked" />
+
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                            <Label
+                                Text="Belum punya akun?"
+                                FontSize="13"
+                                TextColor="{StaticResource TextSoft}" />
+
+                            <Label
+                                Text="Daftar sekarang"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PrimaryTeal}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRegisterTapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <!-- BAGIAN KANAN -->
+                    <Grid
+                        Grid.Column="1"
+                        BackgroundColor="#0A7C7C"
+                        Padding="38">
+
+                        <VerticalStackLayout
+                            Spacing="18"
+                            VerticalOptions="Center">
+
+                            <Border
+                                WidthRequest="120"
+                                HeightRequest="120"
+                                Background="#DFF8F1"
+                                StrokeThickness="0"
+                                HorizontalOptions="Center">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="60" />
+                                </Border.StrokeShape>
+
+                                <Label
+                                    Text="D"
+                                    FontSize="58"
+                                    FontAttributes="Bold"
+                                    TextColor="#0A7C7C"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <Label
+                                Text="Diabetes Risk Prediction"
+                                FontSize="28"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="Sistem prediksi risiko diabetes dengan login berdasarkan role, verifikasi wajah, dan dashboard kesehatan."
+                                FontSize="15"
+                                TextColor="#EFFFFB"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="WordWrap" />
+
+                            <Border
+                                Padding="18"
+                                Background="#22FFFFFF"
+                                StrokeThickness="0"
+                                Margin="0,18,0,0">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="22" />
+                                </Border.StrokeShape>
+
+                                <VerticalStackLayout Spacing="10">
+                                    <Label
+                                        Text="✓ Login berdasarkan role Pasien dan Nakes"
+                                        TextColor="White"
+                                        FontSize="14" />
+
+                                    <Label
+                                        Text="✓ Verifikasi wajah sebelum masuk dashboard"
+                                        TextColor="White"
+                                        FontSize="14" />
+
+                                    <Label
+                                        Text="✓ Tampilan bertema health-tech diabetes"
+                                        TextColor="White"
+                                        FontSize="14" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollView>
+</ContentPage>
